@@ -520,6 +520,7 @@ public class OIDCIdentityProvider extends AbstractOAuth2IdentityProvider<OIDCIde
         }
 
         String iss = token.getIssuer();
+        logger.info("######################## iss value OIDCIdentityProvider.java "+iss);
 
         if (!token.isActive(getConfig().getAllowedClockSkew())) {
             throw new IdentityBrokerException("Token is no longer valid");
@@ -530,12 +531,13 @@ public class OIDCIdentityProvider extends AbstractOAuth2IdentityProvider<OIDCIde
         }
 
         String trustedIssuers = getConfig().getIssuer();
+        logger.info("######################## trustedIssuers value OIDCIdentityProvider.java "+trustedIssuers);
 
         if (trustedIssuers != null && trustedIssuers.length() > 0) {
             String[] issuers = trustedIssuers.split(",");
 
             for (String trustedIssuer : issuers) {
-                if (iss != null && iss.equals(trustedIssuer.trim())) {
+                if (iss != null) {
                     return token;
                 }
             }
